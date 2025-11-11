@@ -8,7 +8,7 @@ const db = new Sequelize({
 })
 
 const Track = db.define('Track', {
-  id: {
+  trackId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -23,14 +23,16 @@ const Track = db.define('Track', {
   },
   albumName: {
     type: DataTypes.STRING,
+    allowNull: false
   },
   genre: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    allowNull: false
   },
   duration: {
     type: DataTypes.INTEGER
   },
-  releasedYear: {
+  releaseYear: {
     type: DataTypes.INTEGER,
   }
 });
