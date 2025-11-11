@@ -7,33 +7,31 @@ const db = new Sequelize({
     logging: console.log // Not necessary, but shows SQL queries in the console 
 })
 
-const Book = db.define('Book', {
+const Track = db.define('Track', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  title: {
+  songTitle: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  author: {
+  artistName: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  isbn: {
+  albumName: {
     type: DataTypes.STRING,
-    unique: true
   },
   genre: {
     type: DataTypes.STRING
   },
-  publishedYear: {
+  duration: {
     type: DataTypes.INTEGER
   },
-  available: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
+  releasedYear: {
+    type: DataTypes.INTEGER,
   }
 });
 
@@ -55,4 +53,4 @@ if (require.main === module) {
     setupDatabase();
 }
 
-module.exports = { db, Book };
+module.exports = { db, Track };
