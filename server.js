@@ -56,16 +56,15 @@ app.get('/api/tracks/:id', async (req, res) => {
 // POST /api/tracks - Create new track
 app.post('/api/tracks', async (req, res) => {
     try {
-        const { title, author, isbn, genre,
-    publishedYear, available } = req.body;
+        const { songTitle, artistName, albumName, genre, duration, releaseYear } = req.body;
     
         const newTrack = await Track.create({
-            title,
-            author,
-            isbn,
+            songTitle,
+            artistName,
+            albumName,
             genre,
-            publishedYear,
-            available
+            duration,
+            releaseYear
         });
     
         res.status(201).json(newTrack);
@@ -78,22 +77,18 @@ app.post('/api/tracks', async (req, res) => {
 // PUT /api/tracks/:id - Update existing track
 app.put('/api/tracks/:id', async (req, res) => {
     try {
-        const { title, author, isbn, genre,
-    publishedYear, available } = req.body;
+        const { songTitle, artistName, albumName, genre, duration, releaseYear } = req.body;
     
         const [updatedRowsCount] = await Track.update(
-            { title, author, isbn, genre, 
-        publishedYear, available },
+            { songTitle, artistName, albumName, genre, duration, releaseYear },
             { where: { id: req.params.id } }
         );
     
         if (updatedRowsCount === 0) {
-            return res.status(404).json({ error: 
-        'Track not found' });
+            return res.status(404).json({ error: 'Track not found' });
         }
     
-        const updatedTrack = await
-    Track.findByPk(req.params.id);
+        const updatedTrack = await Track.findByPk(req.params.id);
         res.json(updatedTrack);
     } catch (error) {
         console.error('Error updating track:', error);
