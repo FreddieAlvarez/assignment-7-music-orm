@@ -43,6 +43,7 @@ async function setupDatabase() {
         console.log('Connection to database established successfully.'); 
 
         await db.sync({ force: true })
+        console.log('Database and tables created.');
         console.log('Database file created at:',`database/${process.env.DB_NAME}`); 
 
         await db.close(); 
