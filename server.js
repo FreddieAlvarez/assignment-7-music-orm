@@ -35,10 +35,10 @@ app.get('/api/tracks', async (req, res) => {
     }
 });
 
-// GET /api/tracks/:trackId - Get track by ID
-app.get('/api/tracks/:trackId', async (req, res) => {
+// GET /api/tracks/:id - Get track by ID
+app.get('/api/tracks/:id', async (req, res) => {
     try {
-        const track = await Track.findByPk(req.params.trackId);
+        const track = await Track.findByPk(req.params.id);
     
         if (!track) {
             return res.status(404).json({ error: 
@@ -73,21 +73,21 @@ app.post('/api/tracks', async (req, res) => {
     }
 });
 
-// PUT /api/tracks/:trackId - Update existing track
-app.put('/api/tracks/:trackId', async (req, res) => {
+// PUT /api/tracks/:id - Update existing track
+app.put('/api/tracks/:id', async (req, res) => {
     try {
         const { songTitle, artistName, albumName, genre, duration, releaseYear } = req.body;
     
         const [updatedRowsCount] = await Track.update(
             { songTitle, artistName, albumName, genre, duration, releaseYear },
-            { where: { trackId: req.params.trackId } }
+            { where: { trackId: req.params.id } }
         );
     
         if (updatedRowsCount === 0) {
             return res.status(404).json({ error: 'Track not found' });
         }
     
-        const updatedTrack = await Track.findByPk(req.params.trackId);
+        const updatedTrack = await Track.findByPk(req.params.id);
         res.json(updatedTrack);
     } catch (error) {
         console.error('Error updating track:', error);
@@ -95,12 +95,12 @@ app.put('/api/tracks/:trackId', async (req, res) => {
     }
 });
 
-// DELETE /api/tracks/:trackId - Delete track
-app.delete('/api/tracks/:trackId', async (req, res) => {
+// DELETE /api/tracks/:id - Delete track
+app.delete('/api/tracks/:id', async (req, res) => {
     try {
         const deletedRowsCount = await
     Track.destroy({
-            where: { trackId: req.params.trackId }
+            where: { trackId: req.params.id }
         });
     
         if (deletedRowsCount === 0) {
