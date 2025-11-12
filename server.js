@@ -57,6 +57,11 @@ app.post('/api/tracks', async (req, res) => {
     try {
         const { songTitle, artistName, albumName, genre, duration, releaseYear } = req.body;
     
+        // Input validation
+        if (!songTitle || !artistName || !albumName) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
         const newTrack = await Track.create({
             songTitle,
             artistName,
